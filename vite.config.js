@@ -9,5 +9,8 @@ export default defineConfig({
       "@": "/src",
       components: "/src/components",
     },
-  }
+  },
+  server: {
+    historyApiFallback: true,
+  },
 })
