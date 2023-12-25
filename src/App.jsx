@@ -20,12 +20,12 @@ import {
 } from "@/_private";
 
 function App() {
-  useEffect(() => {
+  /*useEffect(() => {
     eruda.init({
       element: document.getElementById("console"),
       tools: ["console", "network"]
     });
-  }, []);
+  }, []);*/
 
   return (
     <>
