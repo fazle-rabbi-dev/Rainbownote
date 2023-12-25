@@ -81,7 +81,7 @@ export const NoteHeader = ({ user, note }) => {
                   <Link to={`/edit-note/${note?.$id}`}>
                     <PencilLine size={20} />
                   </Link>
-                  <Link to={`/delete-note/${note?.$id} ${note?.isDeleted && "?type=permanent"}`}>
+                  <Link to={`/delete-note/${note?.$id}${note?.isDeleted ? "?type=permanent" : ""}`}>
                     <Trash2 size={20} />
                   </Link>
                   <button>

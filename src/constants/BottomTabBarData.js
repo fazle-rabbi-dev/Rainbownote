@@ -33,12 +33,6 @@ export const sidebarLinks = [
       link: "/settings"
     },
     {
-      id: 2,
-      name: "📌 About",
-      icon: "Package",
-      link: "/about"
-    },
-    {
       id: 3,
       name: "🚀 Source code",
       icon: "Trash",

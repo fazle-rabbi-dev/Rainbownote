@@ -4,8 +4,6 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 export const Home = () => {
-  const notify = () => toast("Here is your toast.");
-
   return (
     <section className="">
       <div className="custom_container flex justify-center items-center">

@@ -30,12 +30,6 @@ export const deskTopSidebarLinks = [
     link: "/settings"
   },
   {
-    id: 7,
-    name: "About",
-    icon: "📌",
-    link: "/about"
-  },
-  {
     id: 8,
     name: "Source code",
     icon: "🚀",

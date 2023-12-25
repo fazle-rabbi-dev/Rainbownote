@@ -1,12 +1,17 @@
 import { Outlet, Navigate } from "react-router-dom";
-import { MobileNav, DesktopNav, Footer } from "@/components";
-
-const isLoggedin = false;
+import { MobileNav, DesktopNav, Footer, PageLoader } from "@/components";
+import { useUserContext } from "@/context"
 
 export const RootLayout = () => {
+  const { isLoggedIn, isLoading } = useUserContext()
+  
+  if(isLoading){
+    return <PageLoader />
+  }
+  
   return (
     <>
-      {isLoggedin ? (
+      {isLoggedIn ? (
         <Navigate to="/dashboard" />
       ) : (
         <section className="">
