@@ -11,7 +11,7 @@
 
 @layer base {
   body {
-    @apply bg-light-1 dark:bg-dark-2 dark:text-white font-roboto;
+    @apply bg-light-1 font-roboto dark:bg-dark-2 dark:text-white;
   }
 
   h1 {

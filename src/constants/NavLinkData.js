@@ -14,25 +14,25 @@ export default [
     {
       id: 3,
       name: "Report issue",
-      link: "/github",
+      link: "",
       icon: "",
     },
     {
       id: 4,
       name: "Contact",
-      link: "/contact",
+      link: "",
       icon: "",
     },
     {
       id: 5,
       name: "Login",
-      link: "/signin",
+      link: "/sign-in",
       icon: "",
     },
     {
       id: 6,
       name: "Signup",
-      link: "/signup",
+      link: "/sign-up",
       icon: "",
     },
   ]

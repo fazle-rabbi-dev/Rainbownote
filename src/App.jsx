@@ -5,7 +5,7 @@ import eruda from "eruda";
 import toast, { Toaster } from "react-hot-toast";
 
 import { AuthLayout, SigninForm, SignupForm } from "@/_auth";
-import { RootLayout, Home } from "@/_root";
+import { RootLayout, Home, About, NotFound } from "@/_root";
 import {
   PrivateLayout,
   Dashboard,
@@ -15,7 +15,8 @@ import {
   Archive,
   FavouriteNote,
   UpdateNote,
-  DeleteNote
+  DeleteNote,
+  Settings
 } from "@/_private";
 
 function App() {
@@ -40,6 +41,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/sign-in" element={<SigninForm />} />
           <Route path="/sign-up" element={<SignupForm />} />
+          <Route path="/about" element={<About />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
 
         {/* Private Route */}
@@ -52,6 +55,7 @@ function App() {
           <Route path="/favourite-notes" element={<FavouriteNote />} />
           <Route path="/edit-note/:noteid" element={<UpdateNote />} />
           <Route path="/delete-note/:noteid" element={<DeleteNote />} />
+          <Route path="/settings" element={<Settings />} />
         </Route>
       </Routes>
       <ToastContainer />

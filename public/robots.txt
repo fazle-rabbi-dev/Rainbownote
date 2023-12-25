@@ -4,4 +4,4 @@ Disallow:
 Disallow: /*.json
 Crawl-delay: 60
 
-Sitemap: https://example.com/sitemap.xml
+Sitemap: https://rainbownote.vercel.app/sitemap.xml

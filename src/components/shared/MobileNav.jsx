@@ -2,19 +2,19 @@ import { useState } from "react";
 import { Menu, ScrollText, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import NavLinkData from "@/constants/NavLinkData"
+import { useUserContext } from "@/context"
 
 export const MobileNav = ({ padding }) => {
   const [openMenu, setOpenMenu] = useState(false);
+  const { isLoggedIn } = useUserContext()
 
   return (
     <header className={`md:hidden py-5 ${padding ? padding : "px-8"}`}>
       <div className="flex justify-between items-center">
-        <p className="text-xl flex items-center gap-2">
-          <span className="text-primary-600">
-            <ScrollText />
-          </span>
+        <Link to="/" className="text-xl flex items-center gap-2">
+          <img className="w-7 h-7" src="/apple-touch-icon.png" alt="Logo" />
           <p>Rainbownote</p>
-        </p>
+        </Link>
         <nav className="">
           <button
             onClick={() => setOpenMenu(true)}
@@ -38,12 +38,21 @@ export const MobileNav = ({ padding }) => {
               {
                 NavLinkData?.map(navLink => (
                   <li key={navLink.id} className="">
-                    <Link to={navLink.link}>{navLink.name}</Link>
+                    {
+                      isLoggedIn && (navLink.name.includes("Login") || navLink.name.includes("Signup")) ? "" : <Link onClick={() => setOpenMenu(false)} to={navLink.link}>{navLink.name}</Link>
+                    }
                   </li>
-                    
                   ))
               }
-
+              {
+                isLoggedIn && (
+                    <li className="">
+                      <Link className="underline" to="/dashboard">
+                        Dashboard
+                      </Link>
+                    </li>
+                  )
+              }
             </ul>
           </div>
         </nav>

@@ -1,10 +1,5 @@
 export const bottomLinks = [
     {
-      id: 1,
-      name: "Menu",
-      icon: "AlignJustify",
-    },
-    {
       id: 2,
       name: "Home",
       icon: "Home",
@@ -35,24 +30,24 @@ export const sidebarLinks = [
       id: 1,
       name: "⚙️ Settings",
       icon: "Home",
-      link: "/dashboard"
+      link: "/settings"
     },
     {
       id: 2,
       name: "📌 About",
       icon: "Package",
-      link: "/archive"
+      link: "/about"
     },
     {
       id: 3,
       name: "🚀 Source code",
       icon: "Trash",
-      link: "/trash"
+      link: "https://github.com/fazle-rabbi-dev/Rainbownote"
     },
     {
       id: 4,
       name: "🐞 Report issue",
       icon: "PenSquare",
-      link: "/create-note"
+      link: "https://github.com/fazle-rabbi-dev/Rainbownote/issues"
     },
   ]

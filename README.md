@@ -2,7 +2,7 @@
 
 Welcome to Rainbownote, your go-to MERN (MongoDB, Express, React, Node.js) note-taking app that's not just colorful but feature-rich! With Rainbownote, you can organize your thoughts, ideas, and reminders in a visually appealing and user-friendly environment.
 
-<a href="#">See Live</a>
+<a href="https://rainbownote.vercel.app/">See Live</a>
 
 ## Features 🚀
 

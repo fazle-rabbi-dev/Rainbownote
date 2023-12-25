@@ -9,12 +9,12 @@ export const RootLayout = () => {
       {isLoggedin ? (
         <Navigate to="/dashboard" />
       ) : (
-        <>
+        <section className="">
           <MobileNav />
           <DesktopNav />
           <Outlet />
           <Footer />
-        </>
+        </section>
       )}
     </>
   );

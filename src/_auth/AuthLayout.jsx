@@ -17,9 +17,9 @@ export const AuthLayout = () => {
       {isLoggedIn ? (
         <Navigate to="/dashboard" />
       ) : (
-        <section className="px-4">
+        <section className="px-8 md:px-10">
           <MobileNav padding="px-0" />
-          <DesktopNav />
+          <DesktopNav padding="px-0" />
           <Outlet />
         </section>
       )}
