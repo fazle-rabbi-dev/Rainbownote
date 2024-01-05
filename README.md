@@ -29,7 +29,7 @@ A vibrant MERN note app with GitHub login, trash management, and public note sha
 - 🖼️ Icon & cover adding functionality
 
 ### Live Demo 🎉
-Explore the live version of Tech-Canvas [here](https://rainbownote.vercel.app).
+Explore the live version of Rainbownote [here](https://rainbownote.vercel.app).
 
 ## Getting Started 🚀
 
