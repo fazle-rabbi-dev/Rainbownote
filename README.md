@@ -1,42 +1,43 @@
-# Rainbownote - MERN Note App
+# Rainbownote
 
-Welcome to Rainbownote, your go-to MERN (MongoDB, Express, React, Node.js) note-taking app that's not just colorful but feature-rich! With Rainbownote, you can organize your thoughts, ideas, and reminders in a visually appealing and user-friendly environment.
+<img width="100%" src="/public/rainbownote_cover.jpg" alt="Rainbownote - Thumbnail" />
 
-<a href="https://rainbownote.vercel.app/">See Live</a>
+A vibrant MERN note app with GitHub login, trash management, and public note sharing. Personalize notes with covers, icons, and enjoy the sleek TinyMCE editor. Powered by Vite React, Appwrite, React-Hook-Form, React-Query, and Tailwind CSS.
 
-## Features 🚀
+### 🔴 Unveiling the Journey of Building Rainbownote
+> [!Note]
+> I created this note app to practice Appwrite and enhance my React-Query skills. Building this app supercharged my React-Query and Appwrite proficiency. I implemented various features, drawing inspiration from other note-taking apps. I thoroughly enjoyed this project-building journey.
 
-### Account Management
-- **Create Account:** Sign up securely with your email and password.
-- **GitHub Login:** Conveniently log in using your GitHub credentials.
+### Technologies Used ⚒️
+- Vite + React
+- TailwindCSS
+- React-Query
+- React-Hook-Form
+- Appwrite (for Authentication & Storage)
 
-### Note Management
-- **Favorite Notes:** Mark your most important notes as favorites for quick access.
-- **Trash Bin:** Move notes to the trash for temporary storage before permanent deletion.
-- **Restore from Trash:** Easily retrieve notes from the trash if needed.
+### Features
+- 🔐 Authentication with appwrite
+- 🌐 OAuth Provider (Social login with GitHub)
+- ✅ Share note with public by publishing
+- 📝 CRUD operation with note
+- ❤️ Mark note as favourite
+- 🗑️ Move note to trash
+- ↩️ Restore from Trash
+- 🔥 Rich text editor (TinyMCE)
+- 🔍 Search functionality
+- ⚙️ Logout functionality
+- 🖼️ Icon & cover adding functionality
 
-### Sharing and Publishing
-- **Publish Notes:** Share your thoughts with the world by publishing notes publicly.
-- **TinyMCE Editor:** Utilize the powerful TinyMCE editor for a rich text editing experience.
+### Live Demo 🎉
+Explore the live version of Tech-Canvas [here](https://rainbownote.vercel.app).
 
-### Visual Customization
-- **Note Cover & Icon:** Personalize your notes with custom covers and icons.
-
-## Technologies Used 🛠️
-
-- **Vite React:** Lightning-fast React development with Vite.
-- **Appwrite:** Open-source backend server for easy user authentication and data management.
-- **React-Hook-Form:** Simplify form management in React with hooks.
-- **React-Query:** Effortlessly manage and synchronize state with server data.
-- **Tailwind CSS:** A utility-first CSS framework for building stylish and responsive user interfaces.
-
-## Getting Started 🌈
+## Getting Started 🚀
 
 1. Clone the repository: `git clone https://github.com/yourusername/rainbownote.git`
 2. Install dependencies: `npm install`
 3. Configure Appwrite: Set up your Appwrite backend and update the configuration.
 4. Start the app: `npm run dev`
-
+5. Setup **.env**
 ```.env
 VITE_APPWRITE_URL=https://cloud.appwrite.io/v1
 VITE_APPWRITE_PROJECT_ID=
@@ -49,14 +50,19 @@ VITE_GITHUB_AUTH_SUCCESS_CALLBACK=http://localhost:5173/sign-in?authstatus=succe
 VITE_GITHUB_AUTH_FAILURE_CALLBACK=http://localhost:5173/sign-in?authstatus=fail
 ```
 
-## Contributions 🤝
+### Contributions 🤝
 
 Contributions are welcome! Feel free to fork the repository, open issues, and submit pull requests to enhance Rainbownote further.
 
-## License 📄
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ---
 
-Happy note-taking with Rainbownote! 🌈📝
+`Happy note-taking with Rainbownote! 📝`
+
+### 📬 Connect with me
+
+<a target="_blank" href="https://linkedin.com/in/fazlerabbidev" target="blank"><img align="center" src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/linkedin.svg" alt="Fazle Rabbi" height="30" width="auto" /></a>
+<a target="_blank" href="https://twitter.com/fazle_rabbi_dev" target="blank"><img align="center" src="https://seeklogo.com/images/T/twitter-x-logo-101C7D2420-seeklogo.com.png?v=638258862800000000" alt="Fazle Rabbi" height="30" width="auto" /></a>
+<a target="_blank" href="https://medium.com/fazle-rabbi-dev" target="blank"><img align="center" src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/medium.svg" alt="Fazle Rabbi" height="30" width="auto" /></a>
+<a target="_blank" href="https://dev.to/fazle-rabbi-dev" target="blank"><img align="center" src="https://seeklogo.com/images/D/dev-to-logo-BDC0EFA32F-seeklogo.com.png" alt="Fazle Rabbi" height="30" width="auto" /></a>
+<a target="_blank" href="https://facebook.com/fazlerabbidev" target="blank"><img align="center" src="https://seeklogo.com/images/F/facebook-icon-black-logo-133935095E-seeklogo.com.png" alt="Fazle Rabbi" height="30" width="auto" /></a>
+<a target="_blank" href="https://instagram.com/fazle_rabbi_dev" target="blank"><img align="center" src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/instagram.svg" alt="Fazle Rabbi" height="30" width="auto" /></a>
