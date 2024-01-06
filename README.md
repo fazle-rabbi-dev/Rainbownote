@@ -4,9 +4,12 @@
 
 A vibrant MERN note app with GitHub login, trash management, and public note sharing. Personalize notes with covers, icons, and enjoy the sleek TinyMCE editor. Powered by Vite React, Appwrite, React-Hook-Form, React-Query, and Tailwind CSS.
 
-### 🔴 Unveiling the Journey of Building Rainbownote
+## 🔴 Unveiling the Journey of Building Rainbownote
 > [!Note]
 > I created this note app to practice Appwrite and enhance my React-Query skills. Building this app supercharged my React-Query and Appwrite proficiency. I implemented various features, drawing inspiration from other note-taking apps. I thoroughly enjoyed this project-building journey.
+
+### Project Created at
+- 🗓 *Dec 2023*
 
 ### Technologies Used ⚒️
 - Vite + React
@@ -59,10 +62,11 @@ Contributions are welcome! Feel free to fork the repository, open issues, and su
 `Happy note-taking with Rainbownote! 📝`
 
 ### 📬 Connect with me
+> Let's connect! Reach out for collaborations, projects, or just a friendly chat.
 
 <a target="_blank" href="https://linkedin.com/in/fazlerabbidev" target="blank"><img align="center" src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/linkedin.svg" alt="Fazle Rabbi" height="30" width="auto" /></a>
 <a target="_blank" href="https://twitter.com/fazle_rabbi_dev" target="blank"><img align="center" src="https://seeklogo.com/images/T/twitter-x-logo-101C7D2420-seeklogo.com.png?v=638258862800000000" alt="Fazle Rabbi" height="30" width="auto" /></a>
-<a target="_blank" href="https://medium.com/fazle-rabbi-dev" target="blank"><img align="center" src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/medium.svg" alt="Fazle Rabbi" height="30" width="auto" /></a>
+<a target="_blank" href="https://medium.com/@fazle-rabbi-dev" target="blank"><img align="center" src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/medium.svg" alt="Fazle Rabbi" height="30" width="auto" /></a>
 <a target="_blank" href="https://dev.to/fazle-rabbi-dev" target="blank"><img align="center" src="https://seeklogo.com/images/D/dev-to-logo-BDC0EFA32F-seeklogo.com.png" alt="Fazle Rabbi" height="30" width="auto" /></a>
 <a target="_blank" href="https://facebook.com/fazlerabbidev" target="blank"><img align="center" src="https://seeklogo.com/images/F/facebook-icon-black-logo-133935095E-seeklogo.com.png" alt="Fazle Rabbi" height="30" width="auto" /></a>
 <a target="_blank" href="https://instagram.com/fazle_rabbi_dev" target="blank"><img align="center" src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/instagram.svg" alt="Fazle Rabbi" height="30" width="auto" /></a>
