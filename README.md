@@ -57,9 +57,8 @@ VITE_GITHUB_AUTH_FAILURE_CALLBACK=http://localhost:5173/sign-in?authstatus=fail
 
 Contributions are welcome! Feel free to fork the repository, open issues, and submit pull requests to enhance Rainbownote further.
 
----
 
-`Happy note-taking with Rainbownote! 📝`
+*Happy note-taking with Rainbownote! 🎈*
 
 ### 📬 Connect with me
 > Let's connect! Reach out for collaborations, projects, or just a friendly chat.
