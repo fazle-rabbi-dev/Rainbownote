@@ -51,6 +51,7 @@ VITE_APPWRITE_NOTE_COLLECTION_ID=
 VITE_MCE_EDITOR_API_KEY=
 VITE_GITHUB_AUTH_SUCCESS_CALLBACK=http://localhost:5173/sign-in?authstatus=success
 VITE_GITHUB_AUTH_FAILURE_CALLBACK=http://localhost:5173/sign-in?authstatus=fail
+VITE_APP_DOMAIN=https://rainbownote.vercel.app
 ```
 
 ### Contributions 🤝
