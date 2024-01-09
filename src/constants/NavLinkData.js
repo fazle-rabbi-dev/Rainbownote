@@ -14,13 +14,7 @@ export default [
     {
       id: 3,
       name: "Report issue",
-      link: "",
-      icon: "",
-    },
-    {
-      id: 4,
-      name: "Contact",
-      link: "",
+      link: "https://github.com/fazle-rabbi-dev/Rainbownote/issues",
       icon: "",
     },
     {

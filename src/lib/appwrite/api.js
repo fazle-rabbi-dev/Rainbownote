@@ -1,6 +1,7 @@
 import { ID, Query } from "appwrite";
 import { account, databases, storage, avatars, appwriteConfig } from "./config";
 
+
 // =========================================
 // Authentication
 // =========================================
@@ -165,6 +166,7 @@ export const Logout = async () => {
   }
 }
 
+
 // =========================================
 // Note Crud Operation
 // =========================================
@@ -217,6 +219,9 @@ export async function deleteFile(fileId) {
 /* Create Note */  
 export const createNote = async note => {
   try {
+    const isLoggedinUser = await getCurrentlyLoggedInUser()
+    if(!isLoggedinUser) throw Error;
+    
     if (!note) throw Error;
     
     let previewUrl;
@@ -274,6 +279,7 @@ export const getAllNote = async userId => {
   }
 };
 
+/* Get all deleted/trash note */
 export const getAllDeletedNote = async userId => {
   try {
     const notes = await databases.listDocuments(
@@ -354,27 +360,44 @@ export const updateNoteById = async (note) => {
   }
 };
 
-/* Delete note by id */
-// Rename it to moveToTrash
-export const deleteNoteById = async (noteId) => {
+/* Delete/Move to trash note by id */
+export const deleteNoteById = async ({ noteid, type }) => {
   try {
-    /*let note = await databases.listDocuments(
-        appwriteConfig.databaseId,
-        appwriteConfig.noteCollectionId,
-        [Query.equal("$id", noteId)]
-      )
+    if(type && type === "permanent"){
+      let note = await databases.listDocuments(
+          appwriteConfig.databaseId,
+          appwriteConfig.noteCollectionId,
+          [
+            Query.equal("$id", noteid),
+          ]
+        )
+      
+      note = note.documents.length > 0 && note.documents[0]
+      
+      if(!note) throw Error;
+      
+      // Delete note image from storage
+      if(note.coverImageId){
+        await deleteFile(note.coverImageId)
+      }
+      
+      const res = await databases.deleteDocument(
+          appwriteConfig.databaseId, 
+          appwriteConfig.noteCollectionId, 
+          noteid,
+      );
+      
+      console.log("Note permanently deleted")
+      console.log(res)
+      
+      return { status: 'ok', ontrash: false }
+    }
     
-    note = note.documents.length > 0 && note.documents[0]
-    
-    // Delete note image from storage
-    if(note.coverImageId){
-      await deleteFile(note.coverImageId)
-    }*/
-    
+    console.log("fired")
     await databases.updateDocument(
       appwriteConfig.databaseId, 
       appwriteConfig.noteCollectionId, 
-      noteId,
+      noteid,
       {
         isDeleted: true
       }
@@ -382,13 +405,13 @@ export const deleteNoteById = async (noteId) => {
     
     console.log("Note Deleted Success")
     
-    return { status: 'ok' }
+    return { status: 'ok', ontrash: true }
   } catch (error) {
     console.log(`Error occured while deleting note by id.Error: ${error}`);
   }
 };
 
-/* Restote note by id */
+/* Restote note from trash by id */
 export const restoreNoteById = async (noteId) => {
   try {
     let note = await databases.listDocuments(
@@ -417,8 +440,7 @@ export const restoreNoteById = async (noteId) => {
   }
 };
 
-
-/* Make Favourite Note */ 
+/* Mark/Unmark Note as Favourite */ 
 export const toggleFavourite = async (data) => {
   try {
     const updatedDoc = await databases.updateDocument(
@@ -438,7 +460,6 @@ export const toggleFavourite = async (data) => {
   }
 };
 
-
 /* Get All Favourite Note */ 
 export const getFavouriteNotes = async (userId) => {
   try {
@@ -447,7 +468,8 @@ export const getFavouriteNotes = async (userId) => {
       appwriteConfig.noteCollectionId, 
       [
         Query.equal("author", userId),
-        Query.equal("isFavourite", true)
+        Query.equal("isFavourite", true),
+        Query.equal("isDeleted", false),
       ]
     );
     
@@ -456,6 +478,59 @@ export const getFavouriteNotes = async (userId) => {
     return notes.documents;
   } catch (error) {
     console.log(`Error occured while getting favourite note .Error: ${error}`);
+  }
+};
+
+/* Publish Note On Web / Make note publicly accessible */ 
+export const publishNote = async ({userId, noteId, isPublished}) => {
+  try {
+    const notes = await databases.listDocuments(
+      appwriteConfig.databaseId, 
+      appwriteConfig.noteCollectionId, 
+      [
+        Query.equal("$id", noteId),
+        Query.equal("author", userId),
+      ]
+    );
+    
+    if(!notes) throw Error;
+    
+    const publicUrl = `${import.meta.env.VITE_APP_DOMAIN}/public-notes/${noteId}`
+    console.log(publicUrl)
+    
+    const res = await await databases.updateDocument(
+      appwriteConfig.databaseId, 
+      appwriteConfig.noteCollectionId, 
+      noteId,
+      {
+        isPublished,
+        publicUrl
+      }
+    );
+    
+    return res
+  } catch (error) {
+    console.log(`Error occured while publishing note.Error: ${error}`);
+  }
+};
+
+/* Get Published/Public Note */
+export const getPublicNote = async (noteId) => {
+  try {
+    const notes = await databases.listDocuments(
+      appwriteConfig.databaseId, 
+      appwriteConfig.noteCollectionId, 
+      [
+        Query.equal("$id", noteId),
+        Query.equal("isPublished", true),
+      ]
+    );
+    
+    if(!notes) throw Error;
+    
+    return notes.documents[0]
+  } catch (error) {
+    console.log(`Error occured while getting public note.Error: ${error}`);
   }
 };
 

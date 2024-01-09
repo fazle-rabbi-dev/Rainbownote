@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 
 import { signUpSchema } from "@/lib/validation";
-import { Loader } from "@/components"
-import { useCreateUserAccount } from "@/lib/react-query/QueriesAndMutations"
+import { Loader } from "@/components";
+import { useCreateUserAccount } from "@/lib/react-query/QueriesAndMutations";
 
 export const SignupForm = () => {
   const {
@@ -20,21 +20,18 @@ export const SignupForm = () => {
     },
     resolver: yupResolver(signUpSchema)
   });
-  const { mutateAsync: createAccount , isPending: isSigningUp } = useCreateUserAccount()
-  const navigate = useNavigate()
-  
-  const signup = async (data) => {
+  const { mutateAsync: createAccount, isPending: isSigningUp } =
+    useCreateUserAccount();
+  const navigate = useNavigate();
+
+  const signup = async data => {
     await createAccount(data);
-    toast.success('Sign up successfull')
-    navigate("/sign-in")
+    toast.success("Sign up successfull");
+    navigate("/sign-in");
   };
 
   return (
-    <div className="">
-      <form
-        onSubmit={handleSubmit(signup)}
-        className="auth_form"
-      >
+      <form onSubmit={handleSubmit(signup)} className="auth_form">
         <h1 className="h3-bold md:h2-bold">Create an account</h1>
         <div className="my-4">
           <input
@@ -44,9 +41,7 @@ export const SignupForm = () => {
             name="name"
             {...register("name")}
           />
-          <p className="form_error">
-            {errors?.name && errors.name.message}
-          </p>
+          <p className="form_error">{errors?.name && errors.name.message}</p>
         </div>
         <div className="my-4">
           <input
@@ -56,9 +51,7 @@ export const SignupForm = () => {
             name="email"
             {...register("email")}
           />
-          <p className="form_error">
-            {errors?.email && errors.email.message}
-          </p>
+          <p className="form_error">{errors?.email && errors.email.message}</p>
         </div>
         <div className="my-4">
           <input
@@ -77,21 +70,15 @@ export const SignupForm = () => {
             Forget password?
           </Link>
         </div>
-        <button
-          disabled={isSigningUp}
-          className="submit_button"
-          type="submit"
-        >
-          {
-            isSigningUp ? (
-                <>
-                  <Loader />
-                  Signing up
-                </>
-              ) : (
-                  "Sign Up"
-                )
-          }
+        <button disabled={isSigningUp} className="submit_button" type="submit">
+          {isSigningUp ? (
+            <>
+              <Loader />
+              Signing up
+            </>
+          ) : (
+            "Sign Up"
+          )}
         </button>
         <p className="mt-3 text-sm flex gap-2 flex justify-center">
           Already have an account?
@@ -100,6 +87,5 @@ export const SignupForm = () => {
           </Link>
         </p>
       </form>
-    </div>
   );
 };

@@ -5,7 +5,7 @@ import eruda from "eruda";
 import toast, { Toaster } from "react-hot-toast";
 
 import { AuthLayout, SigninForm, SignupForm } from "@/_auth";
-import { RootLayout, Home, About, NotFound } from "@/_root";
+import { RootLayout, Home, About, NotFound, PublicNote } from "@/_root";
 import {
   PrivateLayout,
   Dashboard,
@@ -20,12 +20,12 @@ import {
 } from "@/_private";
 
 function App() {
-  /*useEffect(() => {
+  useEffect(() => {
     eruda.init({
       element: document.getElementById("console"),
       tools: ["console", "network"]
     });
-  }, []);*/
+  }, []);
 
   return (
     <>
@@ -35,8 +35,10 @@ function App() {
           <Route path="/sign-in" element={<SigninForm />} />
           <Route path="/sign-up" element={<SignupForm />} />
         </Route>
-
+        
         {/* Public Route */}
+        <Route path="/public/notes/:noteid" element={<PublicNote />} />
+        
         <Route element={<RootLayout />}>
           <Route index element={<Home />} />
           <Route path="/sign-in" element={<SigninForm />} />

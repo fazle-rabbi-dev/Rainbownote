@@ -3,11 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { Editor as TextEditor } from "@tinymce/tinymce-react";
 import EmojiPicker from "emoji-picker-react";
 import toast from "react-hot-toast";
-import { Smile, Image } from "lucide-react";
+import { Smile, Image, X, Save } from "lucide-react";
 
-import { useCreateNote, useUpdateNoteById } from "@/lib/react-query/QueriesAndMutations";
+import {
+  useCreateNote,
+  useUpdateNoteById
+} from "@/lib/react-query/QueriesAndMutations";
 import { useUserContext } from "@/context";
-import { ImageUploader } from "./ImageUploader";
+import { ImageUploader } from "../ui/ImageUploader";
 import { Loader } from "@/components";
 
 export const Editor = ({ note, action }) => {
@@ -15,16 +18,17 @@ export const Editor = ({ note, action }) => {
   const [icon, setIcon] = useState(note?.icon || "");
   const [file, setFile] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [isReadyEditor, setIsReadyEdtor] = useState(false);
 
   const editorRef = useRef(null);
   const { user } = useUserContext();
   const navigate = useNavigate();
-  
+
   const { mutateAsync: createNote, isPending: isCreatingNote } =
     useCreateNote();
   const { mutateAsync: updateNote, isPending: isUpdatingNote } =
     useUpdateNoteById(note?.$id);
-  
+
   const getHtml = () => {
     if (editorRef.current) {
       return editorRef.current.getContent();
@@ -39,34 +43,35 @@ export const Editor = ({ note, action }) => {
     const content = getHtml();
 
     if (!title || !content) {
-      return toast.error("Oops! empty note couldn't be create.", {
-        duration: 2000
-      });
-    }
-    
-    /* Update Note */
-    if(action === 'update'){
-      const newNote = await updateNote(
+      return toast.error(
+        "Oops! this note couldn't be created because it's empty.",
         {
-          noteId: note?.$id,
-          title,
-          content,
-          author: user?.id,
-          icon: icon || "",
-          file,
-          coverImageId: note?.coverImageId || "not exists"
+          duration: 2000
         }
       );
-      
+    }
+
+    /* Update Note */
+    if (action === "update") {
+      const newNote = await updateNote({
+        noteId: note?.$id,
+        title,
+        content,
+        author: user?.id,
+        icon: icon || "",
+        file,
+        coverImageId: note?.coverImageId || "not exists"
+      });
+
       if (!newNote) {
         return toast.error("Oops! something went wrong");
       }
-      
+
       toast.success("Note updated successfully");
       navigate(`/view-note/${note?.$id}`);
       return;
     }
-    
+
     /* Create Note */
     const newNote = await createNote({
       title,
@@ -94,7 +99,7 @@ export const Editor = ({ note, action }) => {
   return (
     <div className="">
       <ImageUploader setFile={setFile} mediaUrl={note?.coverImage} />
-      
+
       {/* User Actions */}
       <div className="my-4 flex items-center gap-4">
         {!icon && (
@@ -110,17 +115,30 @@ export const Editor = ({ note, action }) => {
           </button>
         )}
       </div>
-      
+
       {/* Emoji Picker */}
-      <div className="fixed top-30 z-40">
-        {showEmojiPicker && (
+      <div
+        className={`${
+          showEmojiPicker ? "flex justify-center items-center " : "hidden"
+        } fixed bg-gray-900/60 top-0 bottom-0 left-0 right-0 w-full z-40`}
+      >
+        <div className="bg-white m-4 rounded">
+          <div className="flex justify-between items-center m-2">
+            <span className="text-gray-600">Choose your favourite one</span>
+            <button
+              className="text-2xl p-2 bg-gray-100 rounded"
+              onClick={() => setShowEmojiPicker(false)}
+            >
+              <X />
+            </button>
+          </div>
           <EmojiPicker
             onEmojiClick={value => toggleEmojiPicker(value.emoji)}
             autoFocusSearch={false}
           />
-        )}
+        </div>
       </div>
-    
+
       {/* Display icon & title */}
       <div className="flex items-center gap-1">
         {icon && (
@@ -138,15 +156,20 @@ export const Editor = ({ note, action }) => {
           value={title}
         />
       </div>
-      
+
       {/* Rich Text Editor */}
       <div className="z-10">
+        {!isReadyEditor && <Loader />}
+
         <TextEditor
           apiKey={`${import.meta.env.VITE_MCE_EDITOR_API_KEY}`}
           onInit={(evt, editor) => (editorRef.current = editor)}
           initialValue={note?.content}
           init={{
-            contextmenu_avoid_overlap: '.mce-spelling-word',
+            setup: editor => {
+              editor.on("init", setIsReadyEdtor(true));
+            },
+            contextmenu_avoid_overlap: ".mce-spelling-word",
             height: 500,
             menubar: false,
             plugins: [
@@ -181,7 +204,8 @@ export const Editor = ({ note, action }) => {
             skin: window.matchMedia("(prefers-color-scheme: dark)").matches
               ? "oxide-dark"
               : "oxide",
-            content_css: window.matchMedia("(prefers-color-scheme: dark)").matches
+            content_css: window.matchMedia("(prefers-color-scheme: dark)")
+              .matches
               ? "dark"
               : "default"
           }}
@@ -189,7 +213,7 @@ export const Editor = ({ note, action }) => {
       </div>
       <button
         disabled={isCreatingNote || isUpdatingNote}
-        className="submit_button flex gap-2 items-center disabled:bg-primary-500"
+        className="submit_button"
         onClick={saveNote}
       >
         {isCreatingNote || isUpdatingNote ? (
@@ -198,7 +222,10 @@ export const Editor = ({ note, action }) => {
             <span>Saving...</span>
           </>
         ) : (
-          "Save"
+          <>
+            <span>Save note</span>
+            <Save size={17} />
+          </>
         )}
       </button>
     </div>

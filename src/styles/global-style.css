@@ -5,9 +5,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* TinyMCE Editor */
 .tox-editor-container {
   z-index: 0;
 }
+
 
 @layer base {
   body {
@@ -20,11 +22,7 @@
   }
 }
 
-/*
-==========================================
-Reusable Classes
-==========================================
-*/
+
 @layer components {
   .btn-primary {
     @apply p-4 py-1 rounded bg-primary-500 text-white;
@@ -63,15 +61,11 @@ Reusable Classes
   }
   
   .auth_form{
-    @apply bg-light-1 shadow border-[.5px] rounded p-4 dark:bg-dark-3 dark:shadow-none dark:border-0
+    @apply bg-light-1 shadow border-[.5px] rounded p-4 md:shadow-none md:border-0 dark:bg-dark-3 dark:shadow-none dark:border-0
   }
 }
 
-/*
-==========================================
-Utility Classes
-==========================================
-*/
+
 @layer utilities {
   .flex-center {
     @apply flex justify-center items-center dark:text-white;
@@ -107,7 +101,7 @@ Utility Classes
   }
 
   .submit_button {
-    @apply mt-4 bg-primary-600 text-white rounded w-full h-12 flex items-center justify-center gap-2 disabled:bg-primary-400;
+    @apply my-6 bg-primary-600 text-white rounded w-full h-12 flex items-center justify-center gap-2 hover:bg-primary-700 disabled:bg-primary-500;
   }
 
   .form_input {
@@ -126,4 +120,36 @@ Utility Classes
     z-index: 99999;
   }
   
+  .note_container h1{
+    @apply text-4xl mt-3 mb-2;
+  }
+  .note_container h2{
+    @apply text-3xl mt-3 mb-2;
+  }
+  .note_container h3{
+    @apply text-2xl mt-3 mb-2;
+  }
+  .note_container h4{
+    @apply text-xl mb-2;
+  }
+  .note_container h5{
+    @apply text-xl mb-2;
+  }
+  .note_container h6{
+    @apply text-xl mb-2;
+  }
+  
+  .note_container ul{
+    margin: 6px 0;
+  }
+  
+  .note_container ul{
+    list-style-type: disc;
+    margin-left: 30px;
+  }
+  
+  .note_container ol{
+    list-style-type: decimal;
+    margin-left: 30px;
+  }
 }

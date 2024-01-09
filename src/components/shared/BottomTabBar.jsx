@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Home, Trash, PenSquare, AlignJustify, Heart } from "lucide-react";
 import { bottomLinks } from "@/constants/BottomTabBarData";
-import { SideBar } from "./SideBar";
+import { SideBar } from "../ui/SideBar";
 
 export const BottomTabBar = () => {
   const { pathname } = useLocation();

@@ -1,11 +1,12 @@
-import HomePageCardData from "@/constants/HomePageCardData.js";
-import FeatureCard from "@/components/ui/FeatureCard";
-import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+
+import FeatureCard from "@/components/ui/FeatureCard";
+import { features } from "@/constants/Features";
 
 export const Home = () => {
   return (
-    <section className="">
+      <div>
       <div className="custom_container flex justify-center items-center">
         <div className="hero">
           <h1 className="h2-bold md:h1-bold text-center md:px-20">
@@ -25,7 +26,7 @@ export const Home = () => {
         </div>
       </div>
 
-      <div className="md:my-14">
+      <div className="hidden md:my-14">
         <img
           className="w-full h-auto"
           src="https://simplenoteblog.files.wordpress.com/2020/07/img_simplenote_hero.png"
@@ -35,14 +36,18 @@ export const Home = () => {
 
       <div className="custom_container">
         <div className="my-16">
-          <h2 className="h3-bold md:h2-bold text-center mb-6 md:px-20">
-            Comprehensive underneath, simple on the surface
+          <h2 className="relative font-extrabold text-2xl text-center mb-6 md:px-20">
+            Unleash the Power of This Note App with These Amazing Features! 💡
+            {/* Gradient Effect */}
+            <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-br from-purple-200 to-fuchsia-700 blur-3xl opacity-30">
+              
+            </div>
           </h2>
-          {HomePageCardData.map(data => (
-            <FeatureCard key={data.id} feature={data} />
+          {features.map(feature => (
+            <FeatureCard key={feature.title} feature={feature} />
           ))}
         </div>
       </div>
-    </section>
+      </div>
   );
 };

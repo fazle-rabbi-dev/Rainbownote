@@ -1,8 +1,5 @@
-import {
-  useState, useEffect
-} from 'react';
-import { AlignJustify, Search, ListFilter } from 'lucide-react';
-
+import { useState, useEffect } from "react";
+import { AlignJustify, Search, ListFilter } from "lucide-react";
 
 export const TopBar = () => {
   return (
@@ -26,5 +23,5 @@ export const TopBar = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

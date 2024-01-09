@@ -15,9 +15,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { sidebarLinks } from "@/constants/BottomTabBarData";
 import { useUserContext } from "@/context";
 import { useSignOut } from "@/lib/react-query/QueriesAndMutations";
+import { useThemeContext } from "@/context";
 
 export const SideBar = ({ isOpenSidebar, sidebarRef, toggleSideBar }) => {
   const navigate = useNavigate();
+  const { toggleDarkMode, isDarkModeEnabled } = useThemeContext();
 
   const { user, setIsLoggedIn, checkAuthUser } = useUserContext();
   const { mutateAsync: Logout } = useSignOut();
@@ -43,24 +45,18 @@ export const SideBar = ({ isOpenSidebar, sidebarRef, toggleSideBar }) => {
         >
           <X />
         </span>
-        
-        
+
         <div>
           <div className="flex gap-2 items-center">
-            <img className="w-7 h-7" src="/apple-touch-icon.png" alt="Logo" />
-            <span>Rainbownote</span>
+            <img className="w-7 h-7" src="/rainbow-note-logo.png" alt="Logo" />
+            <span>RainbowNote</span>
           </div>
           {/* Display User Info */}
           <div className="my-4">
-            <img
-              className="w-14 h-14 rounded-full"
-              src={user?.imageUrl}
-              alt={user?.name}
-            />
             <h2 className="h2-bold">{user?.name}</h2>
             <p className="info">{user?.email}</p>
           </div>
-          
+
           {/* Display Links */}
           <ul className="left_sidebar_menu">
             {sidebarLinks?.map(item => (
@@ -70,7 +66,7 @@ export const SideBar = ({ isOpenSidebar, sidebarRef, toggleSideBar }) => {
                   target={
                     (item.name === "🚀 Source code" ||
                       item.name === "🐞 Report issue") &&
-                    "__blank"
+                    "_blank"
                   }
                   to={item.link}
                   className="block py-2 rounded hover:bg-light-2 dark:hover:bg-dark-3"
@@ -94,8 +90,8 @@ export const SideBar = ({ isOpenSidebar, sidebarRef, toggleSideBar }) => {
               </span>
               <span>Logout</span>
             </button>
-            <button type="button">
-              <Moon />
+            <button onClick={toggleDarkMode} type="button">
+              {isDarkModeEnabled ? <SunMedium /> : <Moon />}
             </button>
           </div>
           <p className="text-sm text-gray-500">

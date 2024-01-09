@@ -19,7 +19,10 @@ export const Trash = () => {
       ) : (
         <div className="">
           {notes?.length === 0 && (
-            <div className="no_result_found">Your trash is empty.After deleting a note, you will find that note here.</div>
+            <div className="no_result_found">
+              Your trash is empty.After deleting a note, you will find that note
+              here.
+            </div>
           )}
 
           <ul className="">

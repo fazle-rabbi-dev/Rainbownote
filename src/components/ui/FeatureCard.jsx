@@ -3,21 +3,13 @@ import { CloudLightning, Tags, Flame, Files } from "lucide-react";
 const FeatureCard = ({ feature }) => {
   return (
     <div className="my-8 flex flex-col gap-3">
-      <h3 className="h4-bold flex items-center gap-4">
+      <h3 className="h4-bold flex items-center gap-2">
         <p className="text-primary-600">
-          {feature.icon === "Flame" ? (
-            <Flame size={35} />
-          ) : feature.icon === "Tags" ? (
-            <Tags size={35} />
-          ) : feature.icon === "CloudLightning" ? (
-            <CloudLightning size={35} />
-          ) : (
-            <Files size={35} />
-          )}
+          {feature?.title.slice(0,2)}
         </p>
-        <span>{feature.title}</span>
+        <span>{feature?.title.slice(2)}</span>
       </h3>
-      <p className="info">{feature.desc}</p>
+      <p className="info">{feature?.description}</p>
     </div>
   );
 };

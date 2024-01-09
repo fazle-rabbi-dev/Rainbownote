@@ -1,21 +1,23 @@
 import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 
 import { signInSchema } from "@/lib/validation";
-import { Loader } from "@/components"
-import { useSignInAccount } from "@/lib/react-query/QueriesAndMutations"
-import { loginWithGithub as githubLogin, saveUserAfterGithubAuth } from "@/lib/appwrite/api"
-import { useUserContext } from "@/context"
-
+import { Loader } from "@/components";
+import { useSignInAccount } from "@/lib/react-query/QueriesAndMutations";
+import {
+  loginWithGithub as githubLogin,
+  saveUserAfterGithubAuth
+} from "@/lib/appwrite/api";
+import { useUserContext } from "@/context";
 
 export const SigninForm = () => {
-  const [isLoadingAuth, setIsLoadingAuth] = useState(false)
-  const navigate = useNavigate()
-  const location = useLocation()
-  
+  const [isLoadingAuth, setIsLoadingAuth] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const {
     register,
     formState: { errors },
@@ -27,56 +29,53 @@ export const SigninForm = () => {
     },
     resolver: yupResolver(signInSchema)
   });
-  const { mutateAsync: signInAccount , isPending: isSigningIn } = useSignInAccount()
-  const { user, checkAuthUser } = useUserContext()
-  
-  const signin = async (data) => {
-    const res = await signInAccount(data)
-    if(!res) return toast.error("Wrong email or password");
-    toast.success("Login in successful")
-    await checkAuthUser()
+  const { mutateAsync: signInAccount, isPending: isSigningIn } =
+    useSignInAccount();
+  const { user, checkAuthUser } = useUserContext();
+
+  const signin = async data => {
+    const res = await signInAccount(data);
+    if (!res) return toast.error("Wrong email or password");
+    toast.success("Login in successful");
+    await checkAuthUser();
     navigate("/dashboard");
   };
-  
+
   const loginWithGithub = async () => {
-    console.log("loginWithGithub")
+    console.log("loginWithGithub");
     await githubLogin();
-  }
-  
+  };
+
   const handleGithubAuth = async () => {
     const params = new URLSearchParams(location.search);
     const authstatus = params.get("authstatus");
-    
-    if(authstatus && authstatus === "success"){
+
+    if (authstatus && authstatus === "success") {
       setIsLoadingAuth(true);
       const createdUser = await saveUserAfterGithubAuth();
-      if(createdUser?.$id){
-        toast.success("Login in successful")
-        await checkAuthUser()
+      if (createdUser?.$id) {
+        toast.success("Login in successful");
+        await checkAuthUser();
         // navigate("/dashboard");
-      }else{
-        toast.error("Login failed")
-        setIsLoadingAuth(false)
+      } else {
+        toast.error("Login failed");
+        setIsLoadingAuth(false);
       }
     }
-    
-    if(authstatus && authstatus === "fail"){
-      toast.error("Login failed")
+
+    if (authstatus && authstatus === "fail") {
+      toast.error("Login failed");
     }
-  }
-  
+  };
+
   useEffect(() => {
-    if(!isLoadingAuth){
+    if (!isLoadingAuth) {
       handleGithubAuth();
     }
-  },[])
-  
+  }, []);
+
   return (
-    <div className="">
-      <form
-        onSubmit={handleSubmit(signin)}
-        className="auth_form"
-      >
+      <form onSubmit={handleSubmit(signin)} className="auth_form">
         <h1 className="h3-bold md:h2-bold">Welcoke Back!</h1>
         <div className="my-4">
           <input
@@ -86,9 +85,7 @@ export const SigninForm = () => {
             name="email"
             {...register("email")}
           />
-          <p className="form_error">
-            {errors?.email && errors.email.message}
-          </p>
+          <p className="form_error">{errors?.email && errors.email.message}</p>
         </div>
         <div className="my-4">
           <input
@@ -112,32 +109,41 @@ export const SigninForm = () => {
           className="submit_button"
           type="submit"
         >
-          {
-            isSigningIn ? (
-                <>
-                  <Loader />
-                  Logining
-                </>
-              ) : (
-                  "Log In"
-                )
-          }
+          {isSigningIn ? (
+            <>
+              <Loader />
+              Logining
+            </>
+          ) : (
+            "Log In"
+          )}
         </button>
-        <button disabled={isLoadingAuth} onClick={loginWithGithub} className="bg-dark-2 text-white rounded w-full my-2 py-3 flex justify-center items-center gap-2" type="button">
-          {
-            isLoadingAuth ? (
-                <>
-                  <Loader />
-                  <img className="w-6 rounded-full" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6dMFApzKfQirskhvPqknEBLdQefLj4YXbAw&usqp=CAU" alt="Github logo" />
-                  Logining..
-                </>
-              ) : (
-                  <>
-                    <img className="w-6 rounded-full" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6dMFApzKfQirskhvPqknEBLdQefLj4YXbAw&usqp=CAU" alt="Github logo" />
-                    Log in with github
-                  </>
-                )
-          }
+        <button
+          disabled={isLoadingAuth}
+          onClick={loginWithGithub}
+          className="bg-dark-2 text-white rounded w-full my-2 py-3 flex justify-center items-center gap-2"
+          type="button"
+        >
+          {isLoadingAuth ? (
+            <>
+              <Loader />
+              <img
+                className="w-6 rounded-full"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6dMFApzKfQirskhvPqknEBLdQefLj4YXbAw&usqp=CAU"
+                alt="Github logo"
+              />
+              Logining..
+            </>
+          ) : (
+            <>
+              <img
+                className="w-6 rounded-full"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6dMFApzKfQirskhvPqknEBLdQefLj4YXbAw&usqp=CAU"
+                alt="Github logo"
+              />
+              Log in with github
+            </>
+          )}
         </button>
         <p className="mt-3 text-sm flex gap-2 flex justify-center">
           Dont't have an account?
@@ -146,6 +152,5 @@ export const SigninForm = () => {
           </Link>
         </p>
       </form>
-    </div>
   );
 };

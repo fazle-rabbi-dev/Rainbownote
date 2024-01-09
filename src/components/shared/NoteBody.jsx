@@ -2,9 +2,9 @@ import React from "react";
 
 export const NoteBody = ({ note }) => {
   return (
-    <p
-      className="mt-6 px-4"
+    <div
+      className="mt-6 px-4 note_container"
       dangerouslySetInnerHTML={{ __html: note?.content }}
-    ></p>
+    ></div>
   );
 };

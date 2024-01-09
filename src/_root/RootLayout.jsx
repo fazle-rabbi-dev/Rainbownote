@@ -1,25 +1,27 @@
 import { Outlet, Navigate } from "react-router-dom";
 import { MobileNav, DesktopNav, Footer, PageLoader } from "@/components";
-import { useUserContext } from "@/context"
+import { useUserContext } from "@/context";
 
 export const RootLayout = () => {
-  const { isLoggedIn, isLoading } = useUserContext()
-  
-  if(isLoading){
-    return <PageLoader />
+  const { isLoggedIn, isLoading } = useUserContext();
+
+  if (isLoading) {
+    return <PageLoader />;
   }
-  
+
   return (
     <>
       {isLoggedIn ? (
         <Navigate to="/dashboard" />
       ) : (
-        <section className="">
+        <>
           <MobileNav />
           <DesktopNav />
-          <Outlet />
+          <section className="min-h-screen">
+            <Outlet />
+          </section>
           <Footer />
-        </section>
+        </>
       )}
     </>
   );

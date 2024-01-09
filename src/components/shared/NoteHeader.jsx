@@ -1,17 +1,27 @@
-import React from "react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { PencilLine, Trash2, UndoDot, Heart, Star, Globe } from "lucide-react";
 import toast from "react-hot-toast";
+import { PublishNoteModal } from "@/components";
 
 import { formatDate } from "@/lib";
-import { useToggleFavourite, useRestoreNoteById } from "@/lib/react-query/QueriesAndMutations";
+import {
+  useToggleFavourite,
+  useRestoreNoteById,
+  usePublishNote
+} from "@/lib/react-query/QueriesAndMutations";
 
 export const NoteHeader = ({ user, note }) => {
+  const [openPublishModal, setOpenPublishModal] = useState(false);
+  const [isPublished, setIsPublished] = useState(false);
+
   const { mutateAsync: toggleFavourite, isPending: isTogglingFavourite } =
     useToggleFavourite(note?.$id);
   const { mutateAsync: restoreNote, isPending: isRestoringNote } =
     useRestoreNoteById(note?.$id);
-  
+
+  const { mutateAsync: publishNote, isPending: publishProcessing } =
+    usePublishNote(note?.$id);
 
   const markAsFavourite = async () => {
     let updatedDoc;
@@ -33,16 +43,32 @@ export const NoteHeader = ({ user, note }) => {
 
     toast.error("Oops! something went wrong");
   };
-  
+
   const handleRestoreNote = async () => {
-    const res = await restoreNote(note?.$id)
-    if(res?.status === 'ok'){
-      toast.success("Note successfully restored.")
-    }else{
-      toast.error("Note restore failed")
+    const res = await restoreNote(note?.$id);
+    if (res?.status === "ok") {
+      toast.success("Note successfully restored.");
+    } else {
+      toast.error("Note restore failed");
     }
-  }
-  
+  };
+
+  const handlePublish = async () => {
+    const res = await publishNote({
+      userId: note?.author,
+      noteId: note?.$id,
+      isPublished: !isPublished
+    });
+    if (!res) {
+      return toast.error("Oops! something went wrong");
+    }
+
+    toast.success(
+      `Note ${res?.isPublished ? "published" : "unpublished"} successfully`
+    );
+    setIsPublished(!isPublished);
+  };
+
   return (
     <>
       {/* Display icon with cover image when both exists */}
@@ -75,35 +101,58 @@ export const NoteHeader = ({ user, note }) => {
           </p>
 
           {/* User Actions */}
-          {
-            user && (
-                <div className="mt-2 flex items-center gap-4 text-dark-5 dark:text-off-white">
+          {user && (
+            <div className="mt-2 flex items-center gap-4 text-dark-5 dark:text-off-white">
+              {!note?.isDeleted && (
+                <>
                   <Link to={`/edit-note/${note?.$id}`}>
                     <PencilLine size={20} />
                   </Link>
-                  <Link to={`/delete-note/${note?.$id}${note?.isDeleted ? "?type=permanent" : ""}`}>
-                    <Trash2 size={20} />
-                  </Link>
-                  <button>
+                  <button onClick={() => setOpenPublishModal(true)}>
                     <Globe size={20} />
                   </button>
-                  <button
-                    disabled={isTogglingFavourite}
-                    className={note?.isFavourite && "text-primary-600 font-bold"}
-                    onClick={markAsFavourite}
-                  >
-                    <Star size={20} />
-                  </button>
-                  {note?.isDeleted && (
-                    <button onClick={handleRestoreNote} disabled={isRestoringNote} type="button">
-                      <UndoDot size={24} />
-                    </button>
-                  )}
-                </div>
-              )
-          }
+                </>
+              )}
+              <Link
+                to={`/delete-note/${note?.$id}${
+                  note?.isDeleted ? "?type=permanent" : ""
+                }`}
+              >
+                <Trash2 size={20} />
+              </Link>
+              {!note?.isDeleted && (
+                <button
+                  disabled={isTogglingFavourite}
+                  className={note?.isFavourite && "text-primary-600 font-bold"}
+                  onClick={markAsFavourite}
+                >
+                  <Star size={20} />
+                </button>
+              )}
+              {note?.isDeleted && (
+                <button
+                  onClick={handleRestoreNote}
+                  disabled={isRestoringNote}
+                  type="button"
+                >
+                  <UndoDot size={24} />
+                </button>
+              )}
+            </div>
+          )}
         </div>
       </div>
+
+      {/* Publish Note Modal */}
+      {openPublishModal && (
+        <PublishNoteModal
+          isPublished={isPublished}
+          handlePublish={handlePublish}
+          setOpenPublishModal={setOpenPublishModal}
+          note={note}
+          publishProcessing={publishProcessing}
+        />
+      )}
     </>
   );
 };
