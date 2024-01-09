@@ -43,7 +43,7 @@ export const PublicNote = () => {
 
             <Link
               target="_blank"
-              to="https://github.com/fazle-rabbi-dev/Rainbownote"
+              to="/"
             >
               <img className="w-6 h-6" src="/apple-touch-icon.png" alt="Logo" />
             </Link>

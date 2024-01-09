@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { PencilLine, Trash2, UndoDot, Heart, Star, Globe } from "lucide-react";
 import toast from "react-hot-toast";
@@ -68,6 +68,12 @@ export const NoteHeader = ({ user, note }) => {
     );
     setIsPublished(!isPublished);
   };
+
+  useEffect(() => {
+    if(note && note?.isPublished){
+      setIsPublished(true);
+    }
+  },[note]);
 
   return (
     <>

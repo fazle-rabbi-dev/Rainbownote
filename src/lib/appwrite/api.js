@@ -495,7 +495,7 @@ export const publishNote = async ({userId, noteId, isPublished}) => {
     
     if(!notes) throw Error;
     
-    const publicUrl = `${import.meta.env.VITE_APP_DOMAIN}/public-notes/${noteId}`
+    const publicUrl = `${import.meta.env.VITE_APP_DOMAIN}/public/notes/${noteId}`
     console.log(publicUrl)
     
     const res = await await databases.updateDocument(

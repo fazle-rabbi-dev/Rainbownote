@@ -25,8 +25,8 @@ function App() {
       element: document.getElementById("console"),
       tools: ["console", "network"]
     });
-  }, []);*/
-
+  }, []);
+*/
   return (
     <>
       <Routes>
