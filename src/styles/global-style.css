@@ -120,6 +120,10 @@
     z-index: 99999;
   }
   
+  .note_container{
+    word-break: break-all;
+  }
+  
   .note_container h1{
     @apply text-4xl mt-3 mb-2;
   }
