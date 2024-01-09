@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import eruda from "eruda";
+// import eruda from "eruda";
 import toast, { Toaster } from "react-hot-toast";
 
 import { AuthLayout, SigninForm, SignupForm } from "@/_auth";
@@ -20,12 +20,12 @@ import {
 } from "@/_private";
 
 function App() {
-  useEffect(() => {
+  /*useEffect(() => {
     eruda.init({
       element: document.getElementById("console"),
       tools: ["console", "network"]
     });
-  }, []);
+  }, []);*/
 
   return (
     <>
