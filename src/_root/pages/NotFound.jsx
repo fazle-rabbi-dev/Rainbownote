@@ -2,12 +2,10 @@ import React from 'react'
 
 export const NotFound = () => {
   return (
-    <div className="px-8 text-center md:flex md:justify-between md:items-center ">
+    <div className="px-8 text-center flex flex-col justify-center items-center">
       <div className="md:w-7/12">
-        <h1 className="text-4xl font-extrabold">
-          Oops!
-        </h1>
-        <span className="block my-2 text-gray-600">
+
+        <span className="block my-2 text-gray-600 dark:text-gray-300">
           It looks like the page you're trying to reach has gone on vacation. 🏝️ Please check the URL or go back to our homepage.
         </span>
       </div>

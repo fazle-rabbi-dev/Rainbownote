@@ -8,7 +8,7 @@ export default [
     {
       id: 2,
       name: "About",
-      link: "/about",
+      link: "https://github.com/fazle-rabbi-dev/rainbownote",
       icon: "",
     },
     {

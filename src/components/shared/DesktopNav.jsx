@@ -5,7 +5,7 @@ export const DesktopNav = ({ padding }) => {
   return (
     <header className={`hidden md:block py-5 ${padding ? padding : "px-8"}`}>
       <div className="flex justify-between items-center">
-        <Link to="/" className="font-bold flex items-center gap-2">
+        <Link to="/" className="font-patrik_hand flex items-center gap-2">
           <img className="w-7 h-7" src="/apple-touch-icon.png" alt="" />
           <p>RainbowNote</p>
         </Link>
@@ -15,7 +15,7 @@ export const DesktopNav = ({ padding }) => {
               <Link to="/">Home</Link>
             </li>
             <li className="">
-              <Link to="/about">About</Link>
+              <Link target="_blank" to="https://github.com/fazle-rabbi-dev/rainbownote">About</Link>
             </li>
             <li className="">
               <Link
@@ -34,10 +34,10 @@ export const DesktopNav = ({ padding }) => {
             <li className="">
               <Link
                 to="/sign-up"
-                className="py-2 px-4 border-2 rounded"
+                className="py-1 px-4 border-[1px] border-purple-600 text-purple-600 rounded-2xl dark:border-purple-400 dark:text-purple-400"
                 type="button"
               >
-                Sign up
+                Login
               </Link>
             </li>
           </ul>

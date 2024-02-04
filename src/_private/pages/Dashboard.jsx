@@ -70,7 +70,7 @@ export const Dashboard = () => {
       {notes?.length === 0 && (
         <div className="">
           <span className="no_result_found">
-            You haven't created any notes yet.
+            You haven't created any note yet.
           </span>
         </div>
       )}

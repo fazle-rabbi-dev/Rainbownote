@@ -25,9 +25,18 @@ export const SignupForm = () => {
   const navigate = useNavigate();
 
   const signup = async data => {
-    await createAccount(data);
-    toast.success("Sign up successfull");
-    navigate("/sign-in");
+    const res = await createAccount(data);
+
+    if(res?.type === "user_already_exists"){
+      toast.error(`Oops! this email address already registered.Try another email.`)
+    }
+    else if (res?.email){
+      toast.success("Sign up successfull");
+      navigate("/sign-in");
+    }
+    else{
+      toast.error("Oops. Something went wrong.")
+    }
   };
 
   return (

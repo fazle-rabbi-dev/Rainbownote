@@ -1,28 +1,37 @@
 import { useState } from "react";
-import { Menu, ScrollText, X } from "lucide-react";
+import { Menu, ScrollText, X, Moon, Sun } from "lucide-react";
 import { Link } from "react-router-dom";
 import NavLinkData from "@/constants/NavLinkData";
-import { useUserContext } from "@/context";
+import { useUserContext, useThemeContext } from "@/context";
 
 export const MobileNav = ({ padding }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const { isLoggedIn } = useUserContext();
-
+  const { toggleDarkMode, isDarkModeEnabled } = useThemeContext()
+  
   return (
     <header className={`md:hidden py-5 ${padding ? padding : "px-8"}`}>
       <div className="flex justify-between items-center">
-        <Link to="/" className="text-xl flex items-center gap-2">
+        <Link to="/" className="text-xl flex items-center gap-2 font-patrik_hand">
           <img className="w-7 h-7" src="/apple-touch-icon.png" alt="Logo" />
           <p>RainbowNote</p>
         </Link>
         <nav className="">
+          <div className="flex gap-2">
           <button
-            onClick={() => setOpenMenu(true)}
-            className="text-primary-600"
+            className="text-primary-600 dark:text-primary-500"
             type="button"
           >
-            <Menu />
+            {isDarkModeEnabled ? <Sun onClick={toggleDarkMode} size={22} /> : <Moon onClick={toggleDarkMode} size={22} /> }
           </button>
+            <button
+              onClick={() => setOpenMenu(true)}
+              className="text-primary-600 dark:text-primary-500"
+              type="button"
+            >
+              <Menu />
+            </button>
+          </div>
 
           <div
             className={`fixed z-50 py-4 px-8 top-0 right-0 h-screen w-7/12 bg-light-1 shadow transition dark:bg-dark-3 ${
@@ -32,7 +41,7 @@ export const MobileNav = ({ padding }) => {
             <div className="text-end">
               <button
                 onClick={() => setOpenMenu(false)}
-                className="p-2 rounded text-primary-600"
+                className="p-2 rounded text-primary-600 dark:text-primary-500"
                 type="button"
               >
                 <X />
@@ -48,7 +57,7 @@ export const MobileNav = ({ padding }) => {
                   ) : (
                     <Link
                       onClick={() => setOpenMenu(false)}
-                      target={navLink.name === "Report issue" && "_blank"}
+                      target={(["Report issue","About"].includes(navLink.name)) && "_blank"}
                       to={navLink.link}
                     >
                       {navLink.name}

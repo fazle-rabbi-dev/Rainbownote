@@ -58,7 +58,7 @@ export const BottomTabBar = () => {
           <li key={item.name} className="">
             <Link
               className={`flex flex-col justify-center items-center gap-1 w-14 h-14 rounded   ${
-                pathname === item.link && "text-primary-600 font-extra-bold"
+                pathname === item.link && "text-primary-600 font-extra-bold dark:text-purple-400"
               }`}
               to={item.link}
             >

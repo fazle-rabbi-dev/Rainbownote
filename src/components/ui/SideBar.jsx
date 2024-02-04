@@ -82,7 +82,7 @@ export const SideBar = ({ isOpenSidebar, sidebarRef, toggleSideBar }) => {
           <div className="flex justify-between items-center">
             <button
               onClick={handleLogout}
-              className="bg-primary-600 text-white py-2 px-4 rounded flex gap-2 items-center dark:bg-dark-3"
+              className="bg-primary-600 text-white py-2 px-4 rounded flex gap-2 items-center dark:bg-purple-600"
               type="button"
             >
               <span>

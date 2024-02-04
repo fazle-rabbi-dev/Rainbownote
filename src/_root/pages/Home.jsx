@@ -18,7 +18,7 @@ export const Home = () => {
             effortless note-taking.
           </p>
           <button
-            className="bg-primary-600 text-white rounded px-4 py-2"
+            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl px-6 py-3"
             type="button"
           >
             <Link to="/sign-up">Sign up now</Link>

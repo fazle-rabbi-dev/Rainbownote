@@ -1,33 +1,21 @@
-import {
-  useState, useEffect
-} from 'react';
-import { Link } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <footer className="custom_container shadow">
-      <ul className="flex gap-3 justify-center items-center text-dark-5 md:text-sm dark:text-light-4">
-        <li className="">
-          <Link target="_blank" to="https://fazle-rabbi-dev.vercel.app/contact?source=rainbownote">
-            Contact ・
-          </Link>
-        </li>
-        <li className="">
-          <Link target="_blank" to="https://fazle-rabbi-dev.vercel.app/blogs?source=rainbownote">
-            Blogs ・
-          </Link>
-        </li>
-        <li className="">
-          <Link target="_blank" to="https://fazle-rabbi-dev.vercel.app/about?source=rainbownote">
-            About ・
-          </Link>
-        </li>
-        <li className="">
-          <Link target="_blank" to="https://github.com/fazle-rabbi-dev/rainbownote">
-            Github
-          </Link>
-        </li>
-      </ul>
+    <footer className="px-8 py-2 font-patrik_hand md:text-center md:py-4">
+      <p>
+        Made with &hearts; by{" "}
+        <a
+          className="text-purple-600 active:text-purple-600 dark:text-purple-500"
+          href="https://bio.link/fazle_rabbi_dev"
+          target="_blank"
+        >
+          Fazle Rabbi
+        </a>
+      </p>
+
+      <span className="text-gray-500 dark:text-gray-100">&copy; 2023-{new Date().getFullYear()}</span>
     </footer>
-  )
-}
+  );
+};

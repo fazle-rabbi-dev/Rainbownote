@@ -32,7 +32,7 @@ export const createUserAccount = async user => {
       user.name
     );
 
-    if (!newAccount) throw Error;
+    if (!newAccount) throw Error("Accoun exists with same email");
 
     const avatarUrl = avatars.getInitials(user.name);
 
@@ -52,6 +52,7 @@ export const createUserAccount = async user => {
     return newUser;
   } catch (error) {
     console.error(`Error occured while creating account. Error: ${error}`);
+    return error;
   }
 };
 

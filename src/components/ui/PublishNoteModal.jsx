@@ -25,19 +25,19 @@ export const PublishNoteModal = ({
 
   return (
     <div className="py-14 px-10 fixed z-50 top-0 left-0 right-0 bottom-0 w-full h-screen bg-dark-1/30 flex justify-center items-center">
-      <div className="w-full h-fit p-4 rounded-lg bg-white shadow-2xl">
+      <div className="w-full max-w-2xl h-fit p-4 rounded-lg bg-white shadow-2xl dark:bg-gray-700 dark:text-white">
         <div className="flex justify-between items-center">
-          <span className="text-gray-600 text-sm">
+          <span className="text-gray-600 dark:text-white text-sm">
             🎉 Share note with anyone
           </span>
           <button
-            className="p-1 rounded bg-gray-100"
+            className="p-1 rounded bg-gray-100 dark:bg-gray-600"
             onClick={() => setOpenPublishModal(false)}
           >
             <X />
           </button>
         </div>
-        <div className="mt-2">
+        <div className="my-4">
           <button
             disabled={publishProcessing}
             onClick={handlePublish}
@@ -53,7 +53,7 @@ export const PublishNoteModal = ({
               <div className="text-center">
                 <span
                   onClick={() => copyToClipboard(note?.publicUrl)}
-                  className="bg-gray-200 rounded p-2"
+                  className="bg-gray-200 dark:bg-gray-600 rounded p-2"
                 >
                   Copy link
                 </span>

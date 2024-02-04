@@ -36,7 +36,7 @@ export const SigninForm = () => {
   const signin = async data => {
     const res = await signInAccount(data);
     if (!res) return toast.error("Wrong email or password");
-    toast.success("Login in successful");
+    toast.success("Login successful");
     await checkAuthUser();
     navigate("/dashboard");
   };

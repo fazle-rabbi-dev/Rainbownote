@@ -27,6 +27,7 @@ export default {
         "satoshi-medium": ["Satoshi-Medium", "sans"],
         // inter: ['Inter', 'sans-serif'],
         roboto: ['Roboto', 'sans-serif'],
+        patrik_hand: ['Patrick Hand', "cursive"]
       }
     }
   },

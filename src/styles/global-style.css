@@ -1,5 +1,6 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap'); */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
 @import "./fonts.css";
 @tailwind base;
 @tailwind components;
@@ -13,7 +14,7 @@
 
 @layer base {
   body {
-    @apply bg-light-1 font-roboto dark:bg-dark-2 dark:text-white;
+    @apply bg-[#f8f8f8] font-satoshi-medium dark:bg-dark-2 dark:text-white;
   }
 
   h1 {
@@ -61,7 +62,7 @@
   }
   
   .auth_form{
-    @apply bg-light-1 shadow border-[.5px] rounded p-4 md:shadow-none md:border-0 dark:bg-dark-3 dark:shadow-none dark:border-0
+    @apply bg-white shadow-md rounded-2xl px-4 py-10 dark:bg-dark-3 dark:shadow-none
   }
 }
 
@@ -105,7 +106,7 @@
   }
 
   .form_input {
-    @apply w-full py-3 px-2 bg-light-2 rounded focus:outline-0 dark:bg-dark-4;
+    @apply w-full py-3 px-2 bg-light-2 rounded focus:outline-0 dark:bg-gray-700;
   }
 
   .form_error {

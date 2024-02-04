@@ -12,13 +12,14 @@ import {
   Code2,
   Bug
 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { deskTopSidebarLinks } from "../../constants/DesktopSidebarData";
 import { useUserContext } from "@/context";
 import { useSignOut } from "@/lib/react-query/QueriesAndMutations";
 import { useThemeContext } from "@/context";
 
 export const DesktopSideBar = () => {
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const { toggleDarkMode, isDarkModeEnabled } = useThemeContext();
 
@@ -59,7 +60,9 @@ export const DesktopSideBar = () => {
                     "__blank"
                   }
                   to={item.link}
-                  className="flex gap-2 py-2 rounded hover:bg-light-2 dark:hover:bg-dark-3"
+                  className={`flex gap-2 py-2 rounded hover:bg-light-2 dark:hover:bg-dark-3
+                    ${pathname === item.link && "text-primary-600 font-extra-bold dark:text-purple-400"}
+                  `}
                 >
                   <span>
                     {item.name === "Home" ? (
@@ -91,7 +94,7 @@ export const DesktopSideBar = () => {
           <div className="flex justify-between items-center">
             <button
               onClick={handleLogout}
-              className="bg-primary-500 text-white py-2 px-4 rounded flex gap-2 items-center dark:bg-dark-3"
+              className="bg-primary-500 text-white py-2 px-4 rounded flex gap-2 items-center dark:bg-purple-600"
               type="button"
             >
               <span>

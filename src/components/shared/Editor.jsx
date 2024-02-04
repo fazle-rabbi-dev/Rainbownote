@@ -176,7 +176,6 @@ export const Editor = ({ note, action }) => {
               "advlist",
               "autolink",
               "lists",
-              "checklist",
               "link",
               "image",
               "charmap",
