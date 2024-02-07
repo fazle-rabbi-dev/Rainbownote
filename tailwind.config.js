@@ -33,7 +33,7 @@ export default {
   },
   plugins: [
     ],
-  purge: [
-    "./index.html", "./src/**/*.{js,ts,jsx,tsx}"
-  ],
+  //purge: [
+    //"./index.html", "./src/**/*.{js,ts,jsx,tsx}"
+  //],
 };
