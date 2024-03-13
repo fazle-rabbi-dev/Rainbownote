@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-  darkMode: 'class',
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
@@ -26,14 +26,10 @@ export default {
         "supreme-regular": ["Supreme-Regular", "sans"],
         "satoshi-medium": ["Satoshi-Medium", "sans"],
         // inter: ['Inter', 'sans-serif'],
-        roboto: ['Roboto', 'sans-serif'],
-        patrik_hand: ['Patrick Hand', "cursive"]
+        roboto: ["Roboto", "sans-serif"],
+        patrik_hand: ["Patrick Hand", "cursive"]
       }
     }
   },
-  plugins: [
-    ],
-  //purge: [
-    //"./index.html", "./src/**/*.{js,ts,jsx,tsx}"
-  //],
+  plugins: [require("@tailwindcss/typography")]
 };

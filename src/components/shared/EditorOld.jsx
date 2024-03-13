@@ -1,76 +1,54 @@
-import { useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Editor as TextEditor } from "@tinymce/tinymce-react";
 import EmojiPicker from "emoji-picker-react";
 import toast from "react-hot-toast";
 import { Smile, Image, X, Save } from "lucide-react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
-import { useCreateNote, useUpdateNoteById } from "@/lib/react-query/QueriesAndMutations";
+import {
+  useCreateNote,
+  useUpdateNoteById
+} from "@/lib/react-query/QueriesAndMutations";
 import { useUserContext } from "@/context";
 import { ImageUploader } from "../ui/ImageUploader";
 import { Loader } from "@/components";
-
-// Editor Configuration
-const modules = {
-  toolbar: [
-    [{ header: "1" }, { header: "2" }, { font: [] }],
-    [{ size: [] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
-    [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
-    ["link"],
-    [{ color: [] }, { background: [] }],
-    ["clean"]
-  ]
-};
-
-const formats = [
-  "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-  // "image",
-  // "video",
-  "color",
-  "background"
-];
 
 export const Editor = ({ note, action }) => {
   const [title, setTitle] = useState(note?.title || "");
   const [icon, setIcon] = useState(note?.icon || "");
   const [file, setFile] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const [editorHtml, setEditorHtml] = useState("");
-  const [editorLoaded, setEditorLoaded] = useState(false);
+  const [isReadyEditor, setIsReadyEdtor] = useState(false);
 
+  const editorRef = useRef(null);
   const { user } = useUserContext();
   const navigate = useNavigate();
 
-  const { mutateAsync: createNote, isPending: isCreatingNote } = useCreateNote();
-  const { mutateAsync: updateNote, isPending: isUpdatingNote } = useUpdateNoteById(note?.$id);
+  const { mutateAsync: createNote, isPending: isCreatingNote } =
+    useCreateNote();
+  const { mutateAsync: updateNote, isPending: isUpdatingNote } =
+    useUpdateNoteById(note?.$id);
 
-  // =====================================================================================================================
-  // Create Note
-  // =====================================================================================================================
+  const getHtml = () => {
+    if (editorRef.current) {
+      return editorRef.current.getContent();
+    }
+  };
+
   const saveNote = async () => {
     if (!user) {
       return toast.error("Oops! user not loggedin");
     }
 
-    const content = editorHtml;
+    const content = getHtml();
 
     if (!title || !content) {
-      return toast.error("Oops! this note couldn't be created because it's empty.", {
-        duration: 2000
-      });
+      return toast.error(
+        "Oops! this note couldn't be created because it's empty.",
+        {
+          duration: 2000
+        }
+      );
     }
 
     /* Update Note */
@@ -117,19 +95,6 @@ export const Editor = ({ note, action }) => {
       setIcon(emoji);
     }
   };
-  
-  useEffect(() => {
-    if (note?.content) {
-      setEditorHtml(note.content);
-    }
-    
-    const timeout = setTimeout(() => {
-      setEditorLoaded(true);
-    }, 1000);
-
-    // Clean up the timeout
-    return () => clearTimeout(timeout);
-  }, [note?.content]);
 
   return (
     <div className="">
@@ -138,7 +103,11 @@ export const Editor = ({ note, action }) => {
       {/* User Actions */}
       <div className="my-4 flex items-center gap-4">
         {!icon && (
-          <button className="text-gray-400 flex items-center gap-1" onClick={toggleEmojiPicker} type="button">
+          <button
+            className="text-gray-400 flex items-center gap-1"
+            onClick={toggleEmojiPicker}
+            type="button"
+          >
             <span>
               <Smile />
             </span>
@@ -156,11 +125,17 @@ export const Editor = ({ note, action }) => {
         <div className="bg-white m-4 rounded">
           <div className="flex justify-between items-center m-2">
             <span className="text-gray-600">Choose your favourite one</span>
-            <button className="text-2xl p-2 bg-gray-100 rounded" onClick={() => setShowEmojiPicker(false)}>
+            <button
+              className="text-2xl p-2 bg-gray-100 rounded"
+              onClick={() => setShowEmojiPicker(false)}
+            >
               <X />
             </button>
           </div>
-          <EmojiPicker onEmojiClick={value => toggleEmojiPicker(value.emoji)} autoFocusSearch={false} />
+          <EmojiPicker
+            onEmojiClick={value => toggleEmojiPicker(value.emoji)}
+            autoFocusSearch={false}
+          />
         </div>
       </div>
 
@@ -183,15 +158,63 @@ export const Editor = ({ note, action }) => {
       </div>
 
       {/* Rich Text Editor */}
-      <div className="h-[400px]">
-        {
-          editorLoaded ? <ReactQuill theme="snow" value={editorHtml} onChange={setEditorHtml} modules={modules} formats={formats} className="h-[300px]" /> : (
-              <Loader />
-            )
-        }
-      </div>
+      <div className="z-10">
+        {!isReadyEditor && <Loader />}
 
-      <button disabled={isCreatingNote || isUpdatingNote} className="submit_button" onClick={saveNote}>
+        <TextEditor
+          apiKey={`${import.meta.env.VITE_MCE_EDITOR_API_KEY}`}
+          onInit={(evt, editor) => (editorRef.current = editor)}
+          initialValue={note?.content}
+          init={{
+            setup: editor => {
+              editor.on("init", setIsReadyEdtor(true));
+            },
+            contextmenu_avoid_overlap: ".mce-spelling-word",
+            height: 500,
+            menubar: false,
+            plugins: [
+              "advlist",
+              "autolink",
+              "lists",
+              "link",
+              "image",
+              "charmap",
+              "preview",
+              "anchor",
+              "searchreplace",
+              "visualblocks",
+              "code",
+              "fullscreen",
+              "insertdatetime",
+              "media",
+              "table",
+              "code",
+              "help",
+              "wordcount"
+            ],
+            toolbar:
+              "undo redo | blocks | " +
+              "bold italic underline fontfamily backcolor forecolor | alignleft aligncenter " +
+              "alignright alignjustify | bullist checklist numlist outdent indent | " +
+              "removeformat help",
+            content_style:
+              "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+            color_cols_background: 6,
+            skin: window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "oxide-dark"
+              : "oxide",
+            content_css: window.matchMedia("(prefers-color-scheme: dark)")
+              .matches
+              ? "dark"
+              : "default"
+          }}
+        />
+      </div>
+      <button
+        disabled={isCreatingNote || isUpdatingNote}
+        className="submit_button"
+        onClick={saveNote}
+      >
         {isCreatingNote || isUpdatingNote ? (
           <>
             <Loader />
