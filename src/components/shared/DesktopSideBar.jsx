@@ -39,7 +39,7 @@ export const DesktopSideBar = () => {
       <div className="h-full overflow-auto p-4 flex gap-10 flex-col justify-between">
         <div>
           <div className="flex gap-2 items-center">
-            <img className="w-7 h-7" src="/rainbow-note-logo.png" alt="Logo" />
+            <img className="w-7 h-7" src="/logo.png" alt="Logo" />
             <span>RainbowNote</span>
           </div>
 

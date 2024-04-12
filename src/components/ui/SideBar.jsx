@@ -48,7 +48,7 @@ export const SideBar = ({ isOpenSidebar, sidebarRef, toggleSideBar }) => {
 
         <div>
           <div className="flex gap-2 items-center">
-            <img className="w-7 h-7" src="/rainbow-note-logo.png" alt="Logo" />
+            <img className="w-7 h-7" src="/logo.png" alt="Logo" />
             <span>RainbowNote</span>
           </div>
           {/* Display User Info */}
